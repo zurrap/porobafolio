@@ -189,7 +189,8 @@
             * @enum {string}
             */
             Runner.events = {
-                ANIM_END: 'webkitAnimationEnd',
+                // Di bagian Runner.events
+                ANIM_END: typeof document.createElement('div').style.animation !== 'undefined' ? 'animationend' : 'webkitAnimationEnd',
                 CLICK: 'click',
                 KEYDOWN: 'keydown',
                 KEYUP: 'keyup',
@@ -202,6 +203,7 @@
                 BLUR: 'blur',
                 FOCUS: 'focus',
                 LOAD: 'load'
+                
             };
             Runner.prototype = {
                 /**
@@ -245,7 +247,7 @@
                 */
                 loadSounds: function () {
                     if (!IS_IOS) {
-                        this.audioContext = new AudioContext();
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
                         var resourceTemplate =
                             document.getElementById(this.config.RESOURCE_TEMPLATE_ID).content;
                         for (var sound in Runner.sounds) {
@@ -361,6 +363,16 @@
                     }
                 },
                 /**
+                * Add listener for all pointer
+                */
+                addPointerListener: function () {
+                    this.canvas.addEventListener('pointerdown', () => {
+                        if (!this.tRex.jumping && !this.crashed) {
+                            this.tRex.startJump();
+                        }
+                    });
+                },
+                /**
                 * Play the game intro.
                 * Canvas container width expands out to the full width.
                 */
@@ -376,6 +388,7 @@
                         document.styleSheets[0].insertRule(keyframes, 0);
                         this.containerEl.addEventListener(Runner.events.ANIM_END,
                             this.startGame.bind(this));
+                        this.containerEl.style.animation = 'intro .4s ease-out 1 both';
                         this.containerEl.style.webkitAnimation = 'intro .4s ease-out 1 both';
                         this.containerEl.style.width = this.dimensions.WIDTH + 'px';
                         if (this.touchController) {
@@ -2145,6 +2158,8 @@
             width: 9px;
         }
 
+    
+
         .styled-checkbox input[type=checkbox]:checked+label::after {
             opacity: 1;
         }
@@ -2236,8 +2251,9 @@
         }
 
         a {
-            color: rgb(17, 85, 204);
+            color: rgb(0, 0, 0);
             text-decoration: none;
+            font-family: monospace;
         }
 
         .icon {
@@ -2569,7 +2585,7 @@
         </div>
         <div class="onlyforchrome"
             style="margin-top:5px;text-align:center;color:#8a8a8a;margin-bottom:80px; font-size:.8em;line-height:1.2em;font-family: Georgia;">
-            <a href="http://www.thecodepost.org/internet/play-hidden-t-rex-game-offline-chrome/"
+            <a href="#"
                 target="_blank">
             Press "Space" to jump your Dino and start the game.</div>
         <div id="main-frame-notchrome" style="display:none; margin-top:50px;">Sorry, this game only runs on the Google
@@ -2632,14 +2648,10 @@
         </div>
 
         <script type="text/javascript">
-            if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-                new Runner('.interstitial-wrapper');
-            } else {
-                document.getElementById("main-frame-notchrome").style.display = "";
-            }
+            new Runner('.interstitial-wrapper');
         </script>
 
-        <div class="onlyforchrome">
+        <!-- <div class="onlyforchrome">
             <div id="socialbutts" class="addthis_toolbox addthis_default_style"
                 style="text-align:center; padding-top:65px;">
                 <table border="0" style="margin:0 auto;">
@@ -2652,21 +2664,21 @@
                             <div class="g-plusone" data-size="medium"
                                 data-href="http://apps.thecodepost.org/trex/trex.html"></div>
                         </td>
-                        <td><a href="https://twitter.com/share" class="twitter-share-button"
-                                data-url="http://apps.thecodepost.org/trex/trex.html" data-text="Cool Hidden T-Rex game"
-                                data-via="thecodepost" data-hashtags="trexgame"></a>
+                        <td><a href="index.html" class="#"
+                                data-url="https://www.radityarise.my.id" data-text="Go back"
+                                data-via="zurravie" data-hashtags="trexgame"></a>
                             <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
                         </td>
                     </tr>
                 </table>
             </div>
-        </div>
+        </div> -->
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             if (navigator.userAgent.toLowerCase().indexOf('chrome') <= -1) {
                 hideClass(".onlyforchrome");
             }
-        </script>
+        </script> -->
 
 
 
