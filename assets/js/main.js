@@ -49,3 +49,65 @@ document.getElementById("contactForm").addEventListener("submit", async function
 function closeModal() {
     document.getElementById("successModal").classList.remove("show");
 }
+
+// Konfigurasi ScrollReveal dengan reset false agar animasi hanya terjadi sekali
+const sr = ScrollReveal({
+    distance: '60px',
+    duration: 1200,
+    easing: 'cubic-bezier(0.5, 0, 0, 1)',
+    reset: false,
+    viewFactor: 0.2,
+  });
+
+  // Home Section: Memisahkan reveal untuk teks dan gambar agar lebih dinamis
+  sr.reveal('.home-text', {
+    origin: 'left',
+    delay: 200
+  });
+  sr.reveal('.home-img', {
+    origin: 'right',
+    delay: 400
+  });
+
+  // About Section: Kombinasi animasi dari atas dan bawah
+  sr.reveal('.about-img', {
+    origin: 'bottom',
+    delay: 300
+  });
+  sr.reveal('.about-content', {
+    origin: 'top',
+    delay: 500
+  });
+
+  // Skills Section: Memperlihatkan container skills dan grid pengalaman secara stagger
+  sr.reveal('.skills-container', {
+    origin: 'bottom',
+    delay: 300
+  });
+  sr.reveal('.experience__grid', {
+    origin: 'left',
+    delay: 500
+  });
+
+  // Education Section: Animasi pada container dan tiap timeline item secara bergantian
+  sr.reveal('.education-container', {
+    origin: 'right',
+    delay: 300
+  });
+  sr.reveal('.timeline-item', {
+    origin: 'bottom',
+    interval: 200
+  });
+
+  // Projects Section: Menerapkan reveal pada tiap card project dengan interval
+  sr.reveal('.project-card', {
+    origin: 'bottom',
+    delay: 300,
+    interval: 200
+  });
+
+  // Contact Section: Menampilkan container kontak dengan animasi dari atas
+  sr.reveal('.contact-container', {
+    origin: 'top',
+    delay: 300
+  });
