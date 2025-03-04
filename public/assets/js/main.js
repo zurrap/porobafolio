@@ -52,8 +52,8 @@ function closeModal() {
 
 // Konfigurasi ScrollReveal dengan reset false agar animasi hanya terjadi sekali
 const sr = ScrollReveal({
-  distance: '60px',
-  duration: 1200,
+  distance: '10px',
+  duration: 1600,
   easing: 'cubic-bezier(0.5, 0, 0, 1)',
   reset: false,
   viewFactor: 0.2,
